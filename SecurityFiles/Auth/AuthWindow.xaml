@@ -1,0 +1,39 @@
+﻿<Window x:Class="SecurityFiles.Auth.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SecurityFiles.Auth"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="350" Width="450" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition>
+                
+            </ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Margin="5" Width="80" Content="О программе"></Button>
+            <Button Margin="5" Width="50" Content="Помощь"></Button>
+
+        </StackPanel>
+        <StackPanel Name="Registr_stackPanel" Grid.Row="1" Grid.Column="0" Margin="5" Height="270">
+            <TextBlock Margin="5" Text="Логин" Name="login_lable"></TextBlock>
+            <TextBox Name="Login_textbox" Margin="5"></TextBox>
+            <TextBlock Margin="5" Text="Пароль" Name="password_lable"></TextBlock>
+            <PasswordBox Name="Password_textbox" Margin="5" ></PasswordBox>
+            <Button Name="Enter" Margin="10" Content="Войти" Width="50" Click="Enter_Button_Click"></Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="20">
+            <Button Margin="10" Height="50" Content="Новости компании"></Button>
+            <Button Margin="10" Height="50" Content="Список задач на сегодня"></Button>
+            <Button Margin="10" Height="50" Content="Еще какая-то полезная инфа"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
