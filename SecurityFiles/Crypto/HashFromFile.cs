@@ -20,12 +20,13 @@ namespace SecurityFiles.Crypto
 			using StreamReader sr = new StreamReader(path);
 			{
 				var fromfile = sr.ReadToEnd();
-				var timecreationbyte = Encoding.ASCII.GetBytes(timecreation.ToString());
+				//Crypto.EncryptFile.CrFile(fromfile);
+				var timecreationbyte = Encoding.Unicode.GetBytes(timecreation.ToString());
 				hash = fromfile + timecreationbyte;
 			}
 
 			//
-			byte[] data = sha256.ComputeHash(Encoding.UTF8.GetBytes(hash));
+			byte[] data = sha256.ComputeHash(Encoding.Unicode.GetBytes(hash));
 
 			var sBuilder = new StringBuilder();
 			for (int i = 0; i < data.Length; i++)

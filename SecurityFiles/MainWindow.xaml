@@ -17,7 +17,10 @@
             <Button x:Name="Delete" Content="Удалить файл" Margin="0,0,10,0" Click="Temple_2_Click">
 
             </Button>
-            <Button x:Name="Temple_3" Content="Temple_3" Margin="0,0,10,0" Click="Temple_3_Click">
+            <Button x:Name="Temple_3" Content="Зашифровать файл" Margin="0,0,10,0" Click="Temple_3_Click">
+
+            </Button>
+            <Button x:Name="Temple_4" Content="Расшифровать файл" Margin="0,0,10,0" Click="Temple_4_Click">
 
             </Button>
         </ToolBar>

@@ -25,10 +25,13 @@ namespace SecurityFiles.Auth
 			{
 				if(authClass.Login == login && authClass.Password == password)
 					return authClass;
-				
 			}
 			MessageBox.Show("Неправильный логин или пароль");
 			return null;
+		}
+		public static void GetTable()
+		{
+			_authClasses = JSONSettings.DesObj(_authClasses);
 		}
 		public static void TestAdd()
 		{

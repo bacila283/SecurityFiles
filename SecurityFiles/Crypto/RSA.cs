@@ -1,50 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SecurityFiles.Crypto
 {
-	internal class UseRSA
-	{
-		private RSACryptoServiceProvider _rsa= new RSACryptoServiceProvider();
-		public RSAParameters FullRSA()
-		{
-			using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
-			{
-				rsa.KeySize = 512;
-				//string base64string = Convert.ToBase64String(Encoding.UTF8.GetBytes("jiraffy.ru")); //0YLQtdGB0YI=
-				//byte[] dataToEncrypt = Convert.FromBase64String(base64string);
-				//byte[] untext = Encript(dataToEncrypt, rsa.ExportParameters(false));
-				//string text = Decript(untext, rsa.ExportParameters(true));
-				//string base64 = Convert.ToBase64String(untext);
-				_rsa = rsa;
-				return rsa.ExportParameters(false);
-			}
-		}
+    public class UseRSA
+    {
+        private RSACryptoServiceProvider _rsa = new RSACryptoServiceProvider();
+        public RSAParameters NewRSAkey()
+        {
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048))
+            {
+                _rsa = rsa;
+                return _rsa.ExportParameters(true);
+            }
+        }
+        public string PrivPubKey(RSAParameters parameters, bool _choise) // false - pubkey, true - priv key
+        {
 
-		public string Encript(byte[] text)
-		{
-			using (RSACryptoServiceProvider provider = new RSACryptoServiceProvider())
-			{
-				RSAParameters parameters = FullRSA();
-				provider.ImportParameters(parameters);
-				var a = provider.Encrypt(text, false);
-				provider.Dispose();
-				return Encoding.ASCII.GetString(a);
-			}
-		}
-		public string Decript(byte[] text)
-		{
-			RSACryptoServiceProvider provider = new RSACryptoServiceProvider();
-			
-				provider.ImportParameters(_rsa.ExportParameters(true));
-				byte[] a = provider.Decrypt(text, false);
-				byte[] q1 = Encoding.UTF8.GetBytes(provider.ToXmlString(true));
-				return Convert.ToBase64String(a);
-			
-		}
-	}
+            RSACryptoServiceProvider key = new RSACryptoServiceProvider();
+            using (RSACryptoServiceProvider RSA = key)
+            {
+                RSA.ImportParameters(parameters);
+                key = RSA;
+                return key.ToXmlString(_choise);
+            }
+        }
+
+        public string Encript(byte[] text, RSAParameters privkey, bool DoOAEPPadding)
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            using (RSACryptoServiceProvider provider = new RSACryptoServiceProvider())
+            {
+                RSAParameters parameters = privkey;
+                provider.ImportParameters(parameters);
+                provider.ExportParameters(false);
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                var a = provider.Encrypt(text, false); // false
+                provider.Dispose();
+                return Encoding.GetEncoding(1251).GetString(a);
+            }
+        }
+        public static string Decript(byte[] text, string privkey)
+        {
+            byte[] a = new byte[text.Length];
+            using (RSACryptoServiceProvider provider = new RSACryptoServiceProvider())
+            {
+                provider.FromXmlString(privkey);
+                provider.ExportParameters(false);
+                return Encoding.GetEncoding(1251).GetString(provider.Decrypt(text, false));
+            }
+
+        }
+    }
 }

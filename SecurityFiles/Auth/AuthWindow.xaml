@@ -25,9 +25,9 @@
         </StackPanel>
         <StackPanel Name="Registr_stackPanel" Grid.Row="1" Grid.Column="0" Margin="5" Height="270">
             <TextBlock Margin="5" Text="Логин" Name="login_lable"></TextBlock>
-            <TextBox Name="Login_textbox" Margin="5"></TextBox>
+            <TextBox Text="login" Name="Login_textbox" Margin="5"></TextBox>
             <TextBlock Margin="5" Text="Пароль" Name="password_lable"></TextBlock>
-            <PasswordBox Name="Password_textbox" Margin="5" ></PasswordBox>
+            <PasswordBox Password="password" Name="Password_textbox" Margin="5" ></PasswordBox>
             <Button Name="Enter" Margin="10" Content="Войти" Width="50" Click="Enter_Button_Click"></Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="20">
